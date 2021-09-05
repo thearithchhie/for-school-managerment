@@ -50,11 +50,9 @@
                       <td>{{ $department->description }}</td>
                       <td>
                         <div style="position: relative; left: 22%;">
-                          {{-- {{ route('users.edit', $userAllData->id) }} --}}
                           <a href="{{ route('departments.edit', $department->id) }}" class="mr-2"><i
                               class="fa fa-edit text-success font-size-13"></i></a>
-                              {{-- {{ route('users.delete', $userAllData->id) }} --}}
-                          <a href="" id="delete"><i
+                            <a href="{{ route('departments.delete', $department->id) }}" id="delete"><i
                               class="fa fa-trash-o text-danger font-size-13"></i></a>
                         </div>
                       </td>

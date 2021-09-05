@@ -50,7 +50,7 @@ class DepartmentController extends Controller
             'alert-type' => "success"
         );
 
-        return Redirect()->back()->with($notification);
+        return Redirect()->route("departments.index")->with($notification);
     }
 
     /**
@@ -74,7 +74,6 @@ class DepartmentController extends Controller
     {
         $departments = Department::findOrFail($id);
         return view('admin.department.edit', compact('departments'));
-
     }
 
     /**
@@ -86,7 +85,20 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $departments = Department::findOrFail($id);
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $departments->name = $request->name;
+        $departments->save();
+
+        $notification = array(
+            'message' => 'User update successfully',
+            'alert-type' => 'info',
+        );
+
+        return redirect()->route("departments.index")->with($notification);
     }
 
     /**
@@ -95,8 +107,15 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function DepartmentDelete($id)
     {
-        //
+        $departments = Department::findOrFail($id);
+        $departments->delete();
+        $notification = array(
+            'message' => 'Department delete successfully',
+            'alert-type' => 'warning',
+        );
+
+        return redirect()->route("departments.index")->with($notification);
     }
 }

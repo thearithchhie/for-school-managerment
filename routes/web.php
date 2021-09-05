@@ -15,7 +15,11 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/', function(){ return view('admin.index'); });
 
+    // Department
     Route::resource('departments', DepartmentController::class);
+    Route::get('/departments/delete/{id}',[DepartmentController::class, 'DepartmentDelete'])->name('departments.delete');
+    
+    // Role
     Route::resource('roles', RoleController::class);
 
     Route::get('/admin/roles/list/',[RoleController::class, 'AdminRoleList'])->name('admin.roles.list');
@@ -23,6 +27,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/admin/role/update/{id}',[RoleController::class, 'AdminRoleUpdate'])->name('admin.role.update');
     Route::get('/admin/role/delete/{id}',[RoleController::class, 'AdminRoleDelete'])->name('admin.role.delete');
 
+    // Permission
     Route::prefix("permissions")->group(function (){
         Route::get('/add', [PermissionController::class, 'PermissionAdd'])->name('permissions.add');
         Route::post('/create', [PermissionController::class, 'RoleCreate'])->name('permissions.create');
